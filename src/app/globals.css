@@ -1,0 +1,37 @@
+/*
+Here I can define CSS RULES to ALL the routes in the entire application
+This can be imported by any component but its best to add it to the top-level
+component = layout.tsx in app folder
+*/
+@import url('https://fonts.googleapis.com/css2?family=Lusitana:wght@400;700&display=swap'); /* Ensure Lusitana is imported */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/*
+These let me write utility classes for CSS in my TSX markup.
+Done using classnames
+*/
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
