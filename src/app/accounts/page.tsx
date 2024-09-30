@@ -2,7 +2,7 @@ import AccountPreviewCard from "@/app/ui/accounts/accounts-table";
 import { lusitana } from "@/app/ui/fonts";
 import { Suspense } from "react";
 import { AccountPreviewCardSkeleton } from "@/app/ui/skeletons";
-import Form from "@/app/components/form";
+// import Form from "@/app/components/form";
 
 export default async function AccountsPage() {
     return (

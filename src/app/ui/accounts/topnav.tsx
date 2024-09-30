@@ -1,12 +1,11 @@
 import Link from 'next/link';
 import NavLinks from './nav-links';
-import Image from "next/image";
 
 export default function TopNav() {
     return (
         <div className="bg-white shadow-md border-b-2">
             {/* Logo and Title Container */}
-            <Link className="flex items-center" href="/" alt="Back to homepage">
+            <Link className="flex items-center" href="/">
                 <h1 className="text-4xl ml-2 mr-2">Wealth.ax - Grow your wealth</h1>
             </Link>
             {/* Container to center the elements and add uniform padding */}

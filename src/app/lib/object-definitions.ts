@@ -60,4 +60,4 @@ interface Balance {
 }
 
 
-export { Account, User, Transaction, Balance }
+export type { Account, User, Transaction, Balance }
