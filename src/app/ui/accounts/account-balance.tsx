@@ -1,10 +1,9 @@
 // Get the balance of a specific account.
 // Use this when displaying account overview.
 
-import { fetchIndividualBalance } from "@/app/lib/data";
-import { Balance } from "@/app/lib/object-definitions";
+import { fetchIndividualBalance, fetchTotalBalance } from "@/app/lib/data";
 
-export default async function AccountBalance({accountId}: { accountId: string }) {
+export async function AccountBalance({accountId}: { accountId: string }) {
     let accountBalance: number = 0;
     let currency: string = "USD";
     let errorMessage: string = "";
@@ -40,18 +39,11 @@ export default async function AccountBalance({accountId}: { accountId: string })
     );
 }
 
-
-//     // const balances = await fetchTotalBalance();
-//     const accountBalance: number = balances
-//         .filter((balance) => balance.accountId === accountId)
-//         .reduce((total, balance) => {
-//             const value = parseFloat(balance.amount.value);
-//             return total + (balance.creditDebitIndicator === "Credit" ? value : -value);
-//         }, 0);
-//     return (
-//         <div>
-//             {/*{balances}*/}
-//             {accountBalance.toFixed(2)} {balances[0]?.amount.currency}
-//         </div>
-//     );
-// }
+export async function TotalAccountBalances() {
+    const balances = await fetchTotalBalance();
+    return (
+        <div>
+            {balances}
+        </div>
+    );
+}

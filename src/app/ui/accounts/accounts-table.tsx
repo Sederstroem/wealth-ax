@@ -1,5 +1,5 @@
 // import { accounts } from "@/app/lib/placeholder-data";
-import AccountBalance from "@/app/ui/accounts/account-balance";
+import { AccountBalance } from "@/app/ui/accounts/account-balance";
 import Link from "next/link";
 import LatestTransactions from "@/app/ui/accounts/latest-transactions";
 import { fetchAllAccounts } from "@/app/lib/data";
