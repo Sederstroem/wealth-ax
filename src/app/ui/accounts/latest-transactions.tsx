@@ -1,7 +1,6 @@
 import { lusitana } from "@/app/ui/fonts";
 import { transactions } from "@/app/lib/placeholder-data";
 import clsx from "clsx";
-// Try and integrate this with accounts-table instead and get the transactions based on accountid
 export default async function LatestTransactions(
     { accountId }: { accountId: string }
 ) {
