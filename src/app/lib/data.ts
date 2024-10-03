@@ -10,23 +10,6 @@ export async function fetchAllAccounts() {
         throw new Error('Failed fetching all accounts')
     }
 }
-export async function fetchIndividualBalance(accountId: string) {
-    try {
-        return await prisma.balances.findMany({
-            where: {
-                account_id: accountId,
-            },
-            select: {
-                credit_debit_indicator: true,
-                amount_value: true,
-                amount_currency: true,
-            },
-        });
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('Failed to fetch individual balance');
-    }
-}
 
 export async function fetchTotalBalance() {
     try {
@@ -46,3 +29,113 @@ export async function fetchTotalBalance() {
         throw new Error('Failed to fetch total balance');
     }
 }
+
+export async function fetchAccountBalance(accountId: string) {
+    const balance = await prisma.balances.findUnique({
+        where: {
+            account_id: accountId
+        },
+        select: {
+            credit_debit_indicator: true,
+            type: true,
+            amount_value: true,
+            amount_currency: true,
+            date_time: true,
+            credit_line_included: true,
+            credit_line_amount_value: true,
+            credit_line_amount_currency: true,
+        },
+    });
+
+    if (!balance) {
+        throw new Error(`No balance found for account ID: ${accountId}`);
+    }
+
+    return balance;
+}
+
+// export async function fetchAccountServicers(accountId: string) {
+//     return prisma.servicers.findUnique({
+//         where: { account_id: accountId }, // Correctly specify account_id
+//         select: {
+//             scheme_name: true,
+//             identification: true,
+//         },
+//     });
+// }
+
+export async function fetchAccountTransaction(accountId: string) {
+    return prisma.transactions.findMany({
+        where: {
+            account_id: accountId
+        },
+        select: {
+            transaction_id: true,
+            credit_debit_indicator: true,
+            status: true,
+            booking_datetime: true,
+            amount_value: true,
+            amount_currency: true,
+        },
+    });
+}
+export async function fetchAccountAndDetails(accountId: string) {
+    const account = await prisma.accounts.findUnique({
+        where: {
+            id: accountId, // Ensure you're using the correct field for lookup
+        },
+        select: {
+            id: true,
+            status: true,
+            currency: true,
+            account_type: true,
+            account_sub_type: true,
+            description: true,
+            nickname: true,
+            opening_date: true,
+            maturity_date: true,
+            switch_status: true,
+            account_details: {
+                select: {
+                    scheme_name: true,
+                    identification: true,
+                    name: true,
+                    secondary_identification: true,
+                },
+            },
+        },
+    });
+
+    if (!account) {
+        throw new Error(`No account found for ID: ${accountId}`);
+    }
+
+    return account;
+}
+
+// // TODO structure in a different way. Identification parameter screw things up
+// export async function fetchAccountDetails(accountId: string) {
+//     try {
+//         const accountDetails = await prisma.account_details.findUnique({
+//             where: {
+//                 account_id: accountId
+//             },
+//             select: {
+//                 scheme_name: true,
+//                 identification: true,
+//                 name: true,
+//                 secondary_identification: true,
+//             },
+//         });
+//
+//         if (!accountDetails) {
+//             throw new Error(`No account details found for account ID: ${accountId}`);
+//         }
+//
+//         return accountDetails;
+//     } catch (error) {
+//         console.error(`Error fetching account details: ${error.message}`);
+//         throw error; // Rethrow the error for further handling
+//     }
+// }
+
