@@ -23,8 +23,14 @@ export async function AccountBalance({accountId}: { accountId: string }) {
         } else {
             throw new Error("No balance data available.");
         }
-    } catch (error) {
-        errorMessage = `Error fetching balance: ${error.message}`;
+    } catch (error: unknown) {
+        // Ensure error is an instance of Error before accessing its message
+        if (error instanceof Error) {
+            errorMessage = `Error fetching balance: ${error.message}`;
+        } else {
+            errorMessage = "An unknown error occurred.";
+        }
+        // errorMessage = `Error fetching balance: ${error.message}`;
     }
     return (
         <div>
