@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model account_details {
+  account_id               String   @db.VarChar(50)
+  scheme_name              String?  @db.VarChar(50)
+  identification           String   @db.VarChar(50)
+  name                     String?  @db.VarChar(100)
+  secondary_identification String?  @db.VarChar(50)
+  accounts                 accounts @relation(fields: [account_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([account_id, identification])
+}
+
+model accounts {
+  id                     String            @id @db.VarChar(50)
+  status                 String?           @db.VarChar(50)
+  status_update_datetime DateTime?         @db.Timestamp(6)
+  currency               String?           @db.VarChar(10)
+  account_type           String?           @db.VarChar(50)
+  account_sub_type       String?           @db.VarChar(50)
+  description            String?
+  nickname               String?           @db.VarChar(100)
+  opening_date           DateTime?         @db.Timestamp(6)
+  maturity_date          DateTime?         @db.Timestamp(6)
+  switch_status          String?           @db.VarChar(50)
+  account_details        account_details[]
+  balances               balances?
+  servicers              servicers?
+  transactions           transactions[]
+}
+
+model balances {
+  account_id                  String    @id @db.VarChar(50)
+  credit_debit_indicator      String?   @db.VarChar(10)
+  type                        String?   @db.VarChar(50)
+  amount_value                Decimal?  @db.Decimal(10, 2)
+  amount_currency             String?   @db.VarChar(10)
+  date_time                   DateTime? @db.Timestamp(6)
+  credit_line_included        Boolean?
+  credit_line_amount_value    Decimal?  @db.Decimal(10, 2)
+  credit_line_amount_currency String?   @db.VarChar(10)
+  accounts                    accounts  @relation(fields: [account_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model servicers {
+  account_id     String   @id @db.VarChar(50)
+  scheme_name    String?  @db.VarChar(50)
+  identification String?  @db.VarChar(50)
+  accounts       accounts @relation(fields: [account_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model transactions {
+  transaction_id         String    @id @db.VarChar(50)
+  account_id             String?   @db.VarChar(50)
+  credit_debit_indicator String?   @db.VarChar(10)
+  status                 String?   @db.VarChar(50)
+  booking_datetime       DateTime? @db.Timestamp(6)
+  amount_value           Decimal?  @db.Decimal(10, 2)
+  amount_currency        String?   @db.VarChar(10)
+  accounts               accounts? @relation(fields: [account_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
