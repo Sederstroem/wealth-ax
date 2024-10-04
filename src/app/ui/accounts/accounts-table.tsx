@@ -6,7 +6,6 @@ import { fetchAllAccounts } from "@/app/lib/data";
 
 export default async function AccountPreviewCard() {
     const accounts = await fetchAllAccounts();
-     // await new Promise(resolve => setTimeout(resolve, 2000)); // For testing skeletons only
     return (
         <div className="space-y-6 flex flex-col items-center w-full">
             {accounts.map((account) => (

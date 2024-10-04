@@ -5,11 +5,12 @@ import TopNav from "@/app/ui/accounts/topnav";
 
 export default function CommonLayout({ children }: { children: React.ReactNode }) {
     return(
-        <div>
+        <>
             <div>
                 <TopNav/>
             </div>
-            <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
-        </div>
+            <main className="max-w-screen-lg mx-auto p-4 md:p-12"> {/* Use <main> for primary content */}
+                {children}
+            </main>        </>
     )
 }

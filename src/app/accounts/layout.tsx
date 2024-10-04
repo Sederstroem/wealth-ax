@@ -4,5 +4,7 @@ import CommonLayout from "@/app/ui/commonlayout";
 import React from "react";
 
 export default function AccountsLayout({ children }: { children: React.ReactNode }) {
-    return <CommonLayout>{children}</CommonLayout>;
+    return (
+        <CommonLayout>{children}</CommonLayout>
+    );
 }
