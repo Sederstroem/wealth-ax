@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client'
-import {Prisma} from ".prisma/client";
-import Decimal = Prisma.Decimal;
-const prisma = new PrismaClient();
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient()
 
 interface Balance {
-    amount_value: Decimal | null;
+    amount_value: number | null;
     credit_debit_indicator: string | null;
 }
 export async function fetchAllAccounts() {
@@ -26,7 +25,7 @@ export async function fetchTotalBalance() {
         });
         // Calculating the total balance
         return data.reduce((sum: number, balance: Balance): number => {
-            const value = balance.amount_value ? parseFloat(balance.amount_value.toString()) : 0; // Handle Decimal type
+            const value = balance.amount_value ? balance.amount_value : 0; // No need for parsing, it's already a Float
             return balance.credit_debit_indicator === 'Credit' ? sum - value : sum + value; // Debit adds, Credit subtracts
         }, 0);
     } catch (error) {
@@ -58,15 +57,15 @@ export async function fetchAccountBalance(accountId: string) {
         }
 
         // Adjust amount_value if it's a credit
-        let adjustedAmountValue = balance.amount_value?.toString() || '0';
+        let adjustedAmountValue = balance.amount_value || 0;
         if (balance.credit_debit_indicator === 'Credit') {
             // Make the amount negative if it's credit
-            adjustedAmountValue = (-parseFloat(adjustedAmountValue)).toFixed(2);
+            adjustedAmountValue = -adjustedAmountValue;
         }
 
         return {
             ...balance,
-            amount_value: adjustedAmountValue,
+            amount_value: adjustedAmountValue.toFixed(2), // Convert to a string with 2 decimal places if needed
         };
     } catch (error) {
         console.error('Error fetching account balance:', error);

@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output = "./generated/client"
 }
 
 datasource db {
@@ -41,11 +40,11 @@ model balances {
   account_id                  String    @id @db.VarChar(50)
   credit_debit_indicator      String?   @db.VarChar(10)
   type                        String?   @db.VarChar(50)
-  amount_value                Decimal?  @db.Decimal(10, 2)
+  amount_value                Float?
   amount_currency             String?   @db.VarChar(10)
   date_time                   DateTime? @db.Timestamp(6)
   credit_line_included        Boolean?
-  credit_line_amount_value    Decimal?  @db.Decimal(10, 2)
+  credit_line_amount_value    Float?
   credit_line_amount_currency String?   @db.VarChar(10)
   accounts                    accounts  @relation(fields: [account_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -63,7 +62,7 @@ model transactions {
   credit_debit_indicator String?   @db.VarChar(10)
   status                 String?   @db.VarChar(50)
   booking_datetime       DateTime? @db.Timestamp(6)
-  amount_value           Decimal?  @db.Decimal(10, 2)
+  amount_value           Float?
   amount_currency        String?   @db.VarChar(10)
   accounts               accounts? @relation(fields: [account_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
