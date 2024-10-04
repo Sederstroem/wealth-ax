@@ -1,28 +1,18 @@
-// Get the balance of a specific account.
-// Use this when displaying account overview.
-
 import { fetchAccountBalance, fetchTotalBalance } from "@/app/lib/data";
 
 export async function AccountBalance({ accountId }: { accountId: string }) {
-    let accountBalance: number = 0;
-    let currency: string = "USD";
-    let errorMessage: string = "";
+    let accountBalance: number = 0; // Initialize the account balance
+    let currency: string = "USD"; // Default currency
+    let errorMessage: string = ""; // Initialize error message
 
     try {
-        const balance = await fetchAccountBalance(accountId); // Fetching a single balance object
+        const { amount_value, amount_currency } = await fetchAccountBalance(accountId); // Destructure the returned balance object
 
-        // Check if balance object is valid
-        if (balance) {
-            const value: number = balance.amount_value ? parseFloat(balance.amount_value.toString()) : 0;
-
-            // Adjust balance based on credit/debit indicator
-            accountBalance = balance.credit_debit_indicator === "Credit" ? -value : value;
-            currency = balance.amount_currency || "USD"; // Default to USD if no currency is found
-        } else {
-            throw new Error("No balance data available.");
-        }
+        // Ensure amount_value is a valid number
+        accountBalance = parseFloat(amount_value) || 0;
+        currency = amount_currency || "USD"; // Use the currency from the balance or default to USD
     } catch (error: unknown) {
-        // Ensure error is an instance of Error before accessing its message
+        // Handle error appropriately
         if (error instanceof Error) {
             errorMessage = `Error fetching balance: ${error.message}`;
         } else {
