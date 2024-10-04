@@ -18,7 +18,7 @@ export default async function IndividualAccountInfo({ accountId }: { accountId: 
         <div className="rounded-xl bg-gray-150 p-4 shadow-m border-2 flex flex-col space-y-4 w-full max-w-3xl">
             <div className="flex flex-row justify-between items-start space-x-4 w-full p-2">
                 <div className="flex-col flex-1 justify-between space-y-4">
-                    <h2>Accountnumber: {accountAndDetails.account_details[0]?.scheme_name}: {accountAndDetails.account_details[0]?.identification}</h2>
+                    <h2>Accountnumber: {accountAndDetails.account_details[0]?.scheme_name} {accountAndDetails.account_details[0]?.identification}</h2>
                     <ul className="flex-1 space-y-2">
                         <li className="text-md text-gray-600">Status: {accountAndDetails?.status || "Unknown"}</li>
                         <li className="text-md text-gray-600">Currency: {accountAndDetails.currency || "USD"}</li>
