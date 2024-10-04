@@ -1,6 +1,12 @@
 import { PrismaClient } from '@prisma/client'
+import {Prisma} from ".prisma/client";
+import Decimal = Prisma.Decimal;
 const prisma = new PrismaClient();
 
+interface Balance {
+    amount_value: Decimal | null;
+    credit_debit_indicator: string | null;
+}
 export async function fetchAllAccounts() {
     try {
         return await prisma.accounts.findMany();
@@ -19,7 +25,7 @@ export async function fetchTotalBalance() {
             },
         });
         // Calculating the total balance
-        return data.reduce((sum: number, balance): number => {
+        return data.reduce((sum: number, balance: Balance): number => {
             const value = balance.amount_value ? parseFloat(balance.amount_value.toString()) : 0; // Handle Decimal type
             return balance.credit_debit_indicator === 'Credit' ? sum - value : sum + value; // Debit adds, Credit subtracts
         }, 0);
