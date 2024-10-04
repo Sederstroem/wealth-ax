@@ -1,4 +1,4 @@
-import {PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
@@ -50,19 +50,28 @@ export async function fetchAccountBalance(accountId: string) {
     if (!balance) {
         throw new Error(`No balance found for account ID: ${accountId}`);
     }
+    // Adjust amount_value if it's a credit
+    let adjustedAmountValue = balance.amount_value?.toString() || '0';
+    if (balance.credit_debit_indicator === 'Credit') {
+        // Make the amount negative if it's credit
+        adjustedAmountValue = (-parseFloat(adjustedAmountValue)).toFixed(2);
+    }
 
-    return balance;
+    return {
+        ...balance,
+        amount_value: adjustedAmountValue
+    };
 }
 
-// export async function fetchAccountServicers(accountId: string) {
-//     return prisma.servicers.findUnique({
-//         where: { account_id: accountId }, // Correctly specify account_id
-//         select: {
-//             scheme_name: true,
-//             identification: true,
-//         },
-//     });
-// }
+export async function fetchAccountServices(accountId: string) {
+    return prisma.servicers.findUnique({
+        where: { account_id: accountId }, // Correctly specify account_id
+        select: {
+            scheme_name: true,
+            identification: true,
+        },
+    });
+}
 
 export async function fetchAccountTransaction(accountId: string) {
     return prisma.transactions.findMany({
@@ -112,30 +121,4 @@ export async function fetchAccountAndDetails(accountId: string) {
 
     return account;
 }
-
-// // TODO structure in a different way. Identification parameter screw things up
-// export async function fetchAccountDetails(accountId: string) {
-//     try {
-//         const accountDetails = await prisma.account_details.findUnique({
-//             where: {
-//                 account_id: accountId
-//             },
-//             select: {
-//                 scheme_name: true,
-//                 identification: true,
-//                 name: true,
-//                 secondary_identification: true,
-//             },
-//         });
-//
-//         if (!accountDetails) {
-//             throw new Error(`No account details found for account ID: ${accountId}`);
-//         }
-//
-//         return accountDetails;
-//     } catch (error) {
-//         console.error(`Error fetching account details: ${error.message}`);
-//         throw error; // Rethrow the error for further handling
-//     }
-// }
 

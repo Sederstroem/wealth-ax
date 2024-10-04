@@ -5,7 +5,7 @@ import { AccountPreviewCardSkeleton } from "@/app/ui/skeletons";
 
 export default async function AccountsPage() {
     return (
-        <main className="flex flex-col justify-start p-4 max-w-screen-lg mx-auto">
+        <>
             <div className="flex flex-row justify-between pl-2 pr-2">
                 <h1 className="mb-4 text-xl md:text-3xl">Account Overview</h1>
                 {/*<Form />*/}
@@ -15,7 +15,7 @@ export default async function AccountsPage() {
                     <AccountPreviewCard />
                 </Suspense>
             </div>
-        </main>
+        </>
     );
 }
 
