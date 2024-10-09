@@ -34,7 +34,7 @@ export async function AccountBalance({ accountId }: { accountId: string }) {
 }
 
 export async function TotalAccountBalances() {
-    const balances = await fetchTotalBalance();
+    const balances: number = await fetchTotalBalance();
     return (
         <div>
             {balances}

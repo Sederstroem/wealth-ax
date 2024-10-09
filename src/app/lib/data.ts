@@ -33,7 +33,22 @@ export async function fetchTotalBalance() {
         throw new Error('Failed to fetch total balance');
     }
 }
-
+export async function fetchIndividualBalance() {
+    try {
+        const balances = await prisma.balances.findMany({
+            select: {
+                account_id: true,
+                credit_debit_indicator: true,
+                amount_value: true,
+                amount_currency: true,
+            },
+        });
+        return balances;
+    } catch (error) {
+        console.error('Error fetching account balance:', error);
+        throw new Error('Failed to fetch account balance');
+    }
+}
 export async function fetchAccountBalance(accountId: string) {
     try {
         const balance = await prisma.balances.findUnique({

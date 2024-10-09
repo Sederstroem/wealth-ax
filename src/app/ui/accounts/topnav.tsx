@@ -1,15 +1,23 @@
-import Link from 'next/link';
 import NavLinks from './nav-links';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function TopNav() {
     return (
         <div className="bg-white shadow-md border-b-2">
-            {/* Logo and Title Container */}
-            <Link className="flex items-center" href="/">
-                <h1 className="text-4xl ml-2 mr-2">Wealth.ax - Grow your wealth</h1>
-            </Link>
+
             {/* Container to center the elements and add uniform padding */}
-            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 min-h-[70px]">
+            <div className="max-w-5xl mx-auto flex items-center justify-between px-4 md:px-6 min-h-[70px]">
+                {/* Logo and Title Container */}
+                <Link className="flex items-center" href="/">
+                    <Image
+                        width={90}
+                        height={90}
+                        className={`rounded-full`}
+                        src={'/icons/favicon_io/apple-touch-icon.png'}
+                        alt={'Wealth.ax Logo'}
+                    />
+                </Link>
                 {/* Centered Navigation Links */}
                 <div className="flex-grow flex justify-center">
                     <NavLinks />
