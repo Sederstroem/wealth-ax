@@ -147,4 +147,17 @@ export async function fetchAccountAndDetails(accountId: string) {
 
     return account;
 }
+export async function fetchEveryTransaction() {
+    try {
+        const allTransactions = await prisma.transactions.findMany({
+            include: {
+                accounts: true, // This will fetch the associated accounts for each transaction
+            },
+        });
+        return allTransactions; // Return the fetched transactions
+    } catch (error) {
+        console.error("Error fetching transactions:", error);
+        throw error; // Rethrow the error after logging it
+    }
+}
 

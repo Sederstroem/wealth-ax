@@ -15,7 +15,6 @@ export default function Home() {
 
   return (
       <div className="h-screen flex flex-col">
-
         {/* Middle Section: Two Column Layout */}
         <div className={`${lusitana.className} flex justify-center items-center h-screen bg-green-150 `}>
         {/* Left Column: Image */}
