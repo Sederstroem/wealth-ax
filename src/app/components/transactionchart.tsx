@@ -14,44 +14,44 @@ import {
 
 const data = [
     {
-        name: 'Page A',
-        uv: 4000,
+        name: '$Vacation Savings',
+        Balance: -850.00,
         pv: 2400,
         amt: 2400,
     },
     {
-        name: 'Page B',
-        uv: -3000,
+        name: '$Main Business',
+        Balance: -1200.00,
         pv: 1398,
         amt: 2210,
     },
     {
-        name: 'Page C',
-        uv: -2000,
+        name: '$Old Checking',
+        Balance: 500.00,
         pv: -9800,
         amt: 2290,
     },
     {
-        name: 'Page D',
-        uv: 2780,
+        name: '$Daily Expenses',
+        Balance: -2000.00,
         pv: 3908,
         amt: 2000,
     },
     {
-        name: 'Page E',
-        uv: -1890,
+        name: '$Emergency Fund',
+        Balance: -300.00,
         pv: 4800,
         amt: 2181,
     },
     {
-        name: 'Page F',
-        uv: 2390,
+        name: '$Retirement Savings',
+        Balance: 'Error fetching balance: Failed to fetch account balance',
         pv: -3800,
         amt: 2500,
     },
     {
-        name: 'Page G',
-        uv: 3490,
+        name: 'Other Account', // Placeholder for additional accounts if needed
+        Balance: 3490,
         pv: 4300,
         amt: 2100,
     },
@@ -62,7 +62,7 @@ export default class NegativeBarChart extends PureComponent {
         return (
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart
-                    width={500}
+                    width={800}
                     height={300}
                     data={data}
                     margin={{
@@ -78,8 +78,8 @@ export default class NegativeBarChart extends PureComponent {
                     <Tooltip />
                     <Legend />
                     <ReferenceLine y={0} stroke="#000" />
-                    <Bar dataKey="pv" fill="#8884d8" />
-                    <Bar dataKey="uv" fill="#82ca9d" />
+                    <Bar dataKey="Balance" fill="#8884d8" />
+                    <Bar dataKey="Amount" fill="#82ca9d" />
                 </BarChart>
             </ResponsiveContainer>
         );

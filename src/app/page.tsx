@@ -13,11 +13,11 @@ const carouselImages = [
     },
     {
         imgsrc: "/depositphotos_25293855-stock-photo-multi-ethnic-group-thumbs-up.jpg",
-        text: "Register by signing up"
+        text: "Sign up or Login and register your payment card"
     },
     {
         imgsrc: "/group-happy-people-showing-thumb-up-sign-over-white-background-51564090.webp",
-        text: "Register your preferred payment card and start saving"
+        text: "Done! Start saving! "
     }
 ]
 function SimpleSlider() {
@@ -37,7 +37,7 @@ function SimpleSlider() {
                         <Image
                             src={image.imgsrc}
                             alt={`Slide ${index + 1}`}
-                            className="w-full h-auto object-cover"
+                            className="w-full h-auto"
                             height={569}
                             width={360}
                         />

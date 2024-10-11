@@ -48,7 +48,6 @@ body {
     margin: 0 auto; /* Center the slider */
     align-items: center;
     justify-content: center;
-    object-fit: cover;
     overflow: hidden; /* Hide overflow to prevent scrolling issues */
   }
   .slider-container img {

@@ -15,7 +15,7 @@ export default function TopNav() {
                         height={90}
                         className={`rounded-full`}
                         src={'/icons/favicon_io/apple-touch-icon.png'}
-                        alt={'Wealth.ax Logo'}
+                        alt={'Wealth.ax logo'}
                     />
                 </Link>
                 {/* Centered Navigation Links */}
