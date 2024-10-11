@@ -91,13 +91,6 @@ const BalancePieChart = () => {
 
     return (
         <div className="flex flex-row justify-between items-start space-x-4">
-            <div className="flex-none">
-                <ul className="list-disc pl-4">
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                </ul>
-            </div>
             <div className="flex-1">
                 <ResponsiveContainer width="100%" height={400}>
                     <PieChart width={400} height={400}>
